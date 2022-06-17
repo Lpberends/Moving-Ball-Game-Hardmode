@@ -1,5 +1,6 @@
 var character = document.getElementById("character");
 var game = document.getElementById("game");
+var scoreBoard = document.getElementById("score");
 var interval;
 var both = 0;
 var counter = 0;
@@ -52,26 +53,18 @@ var blocks = setInterval(function(){
         game.appendChild(hole);
         currentBlocks.push(counter);
         counter++;
+        scoreBoard.innerText = counter-5;
     }
     var characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
     var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
     var drop = 0;
     if(characterTop <= 0){
-        alert("Game over. Score: "+(counter-9));
+        alert("Game over. Score: "+(counter-5));
         clearInterval(blocks);
         location.reload();
     }
-    //Horizontal Movement
-    if (inputLeft || inputRight){
-        var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        linearMovement = inputRight * 2 - inputLeft * 2;
-        console.log("move me " + linearMovement)
-        left += linearMovement;
-        if(left < 0) left = 0;
-        if(left > 380) left = 380;
-        character.style.left = (left) + "px";
-    }
     //Vertical Movement
+    var thruHole = 0;
     for(var i = 0; i < currentBlocks.length;i++){
         let current = currentBlocks[i];
         let iblock = document.getElementById("block"+current);
@@ -92,12 +85,27 @@ var blocks = setInterval(function(){
                 drop = 0;
             }
         }
+        if(iholeLeft<=characterLeft && iholeLeft+20>=characterLeft && iblockTop-24<characterTop && iblockTop>characterTop){
+            thruHole = 1;
+        }
     }
     if(drop==0){
         if(characterTop < 480){
             character.style.top = characterTop + 2 + "px";
         }
     }else{
-        character.style.top = characterTop - 0.1 + "px";
+        character.style.top = characterTop - scrollSpeed + "px";
+    }
+    //Horizontal Movement
+    if (inputLeft || inputRight){
+        var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+        linearMovement = inputRight * 2 - inputLeft * 2;
+        console.log("move me " + linearMovement)
+        if(!thruHole){
+            left += linearMovement;
+        }
+        if(left < 0) left = 0;
+        if(left > 380) left = 380;
+        character.style.left = (left) + "px";
     }
 },1);
