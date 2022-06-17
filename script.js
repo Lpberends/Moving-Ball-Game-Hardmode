@@ -61,12 +61,15 @@ var blocks = setInterval(function(){
         clearInterval(blocks);
         location.reload();
     }
-    //Horizontal Movement
+   //Horizontal Movement
     if (inputLeft || inputRight){
         var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
         linearMovement = inputRight * 3 - inputLeft * 3;
         console.log("move me " + linearMovement)
-        character.style.left = (left + linearMovement) + "px";
+        left += linearMovement;
+        if(left < 0) left = 0;
+        if(left > 380) left = 380;
+        character.style.left = (left) + "px";
     }
     //Vertical Movement
     for(var i = 0; i < currentBlocks.length;i++){
