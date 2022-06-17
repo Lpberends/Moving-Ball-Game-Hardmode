@@ -18,15 +18,12 @@ function moveRight(){
     }
 }
 document.addEventListener("keydown", event => {
-    if(both==0){
-        both++;
-        if(event.key==="ArrowLeft"){
+        if(event.key==="ArrowLeft" && event.key!=="ArrowRight"){
             interval = setInterval(moveLeft, 0);
         }
-        if(event.key==="ArrowRight"){
+        else if(event.key==="ArrowRight && event.key!=="ArrowLeft""){
             interval = setInterval(moveRight, 1);
         }
-    }
 });
 document.addEventListener("keyup", event => {
     clearInterval(interval);
