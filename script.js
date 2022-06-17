@@ -3,6 +3,7 @@ var game = document.getElementById("game");
 var interval;
 var both = 0;
 var counter = 0;
+var linearMovement = 0;
 var currentBlocks = [];
 
 function moveLeft(){
@@ -19,10 +20,13 @@ function moveRight(){
 }
 document.addEventListener("keydown", event => {
         if(event.key==="ArrowLeft" && event.key!=="ArrowRight"){
-            interval = setInterval(moveLeft, 0);
+            linearMovement = -3;
         }
         else if(event.key==="ArrowRight" && event.key!=="ArrowLeft"){
-            interval = setInterval(moveRight, 1);
+            linearMovement = 3;
+        }
+        else{
+            linearMovement = 0;
         }
 });
 document.addEventListener("keyup", event => {
@@ -61,6 +65,11 @@ var blocks = setInterval(function(){
         clearInterval(blocks);
         location.reload();
     }
+    //Horizontal Movement
+    if (linearMovement != 0){
+        characterLeft = (characterLeft + linearMovement) + "px";
+    }
+    //Vertical Movement
     for(var i = 0; i < currentBlocks.length;i++){
         let current = currentBlocks[i];
         let iblock = document.getElementById("block"+current);
