@@ -37,6 +37,7 @@ var blocks = setInterval(function(){
     if(counter>0){
         var blockLastTop = parseInt(window.getComputedStyle(blockLast).getPropertyValue("top"));
         var holeLastTop = parseInt(window.getComputedStyle(holeLast).getPropertyValue("top"));
+        var holeLastLeft = parseInt(window.getComputedStyle(holeLast).getPropertyValue("left"));
     }
     if(blockLastTop<400||counter==0){
         var block = document.createElement("div");
@@ -48,6 +49,8 @@ var blocks = setInterval(function(){
         block.style.top = blockLastTop + 100 + "px";
         hole.style.top = holeLastTop + 100 + "px";
         var random = Math.floor(Math.random() * 360);
+        while(counter > 10 && Math.abs(random - holeLastLeft) < 101) random = Math.floor(Math.random() * 360);
+        console.log(random);
         hole.style.left = random + "px";
         game.appendChild(block);
         game.appendChild(hole);
@@ -66,9 +69,8 @@ var blocks = setInterval(function(){
     //Vertical Movement
     var thruHole = 0;
     for(var i = 0; i < currentBlocks.length;i++){
-        let current = currentBlocks[i];
-        let iblock = document.getElementById("block"+current);
-        let ihole = document.getElementById("hole"+current);
+        let iblock = document.getElementById("block"+currentBlocks[i]);
+        let ihole = document.getElementById("hole"+currentBlocks[i]);
         let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue("top"));
         let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue("left"));
         var scrollSpeed = Math.min(0.3 + counter * 0.01 , 1.5)
@@ -103,6 +105,8 @@ var blocks = setInterval(function(){
         console.log("move me " + linearMovement)
         if(!thruHole){
             left += linearMovement;
+            if (linearMovement > 0) character.style.transform = "scaleX(1)";
+            else character.style.transform = "scaleX(-1)";
         }
         if(left < 0) left = 0;
         if(left > 380) left = 380;
