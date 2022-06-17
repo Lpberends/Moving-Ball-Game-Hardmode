@@ -10,22 +10,22 @@ var currentBlocks = [];
 
 document.addEventListener("keydown", event => {
         if(event.key==="ArrowLeft"){
-            console.log("left");
+            console.log("left 1");
             inputLeft = 1;
         }
         if(event.key==="ArrowRight"){
-            console.log("right");
+            console.log("right 1");
             inputRight = 1;
         }
 });
 
 document.addEventListener("keyup", event => {
     if(event.key==="ArrowLeft"){
-        console.log("left");
+        console.log("left 0");
         inputLeft = 0;
     }
     if(event.key==="ArrowRight"){
-        console.log("right");
+        console.log("right 0");
         inputRight = 0;
     }
 });
@@ -61,10 +61,10 @@ var blocks = setInterval(function(){
         clearInterval(blocks);
         location.reload();
     }
-   //Horizontal Movement
+    //Horizontal Movement
     if (inputLeft || inputRight){
         var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        linearMovement = inputRight * 3 - inputLeft * 3;
+        linearMovement = inputRight * 2 - inputLeft * 2;
         console.log("move me " + linearMovement)
         left += linearMovement;
         if(left < 0) left = 0;
@@ -78,14 +78,15 @@ var blocks = setInterval(function(){
         let ihole = document.getElementById("hole"+current);
         let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue("top"));
         let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue("left"));
-        iblock.style.top = iblockTop - 0.5 - counter * 0.01 + "px";
-        ihole.style.top = iblockTop -  0.5 - counter * 0.01 + "px";
+        var scrollSpeed = Math.min(0.3 + counter * 0.01 , 1.5)
+        iblock.style.top = iblockTop - scrollSpeed + "px";
+        ihole.style.top = iblockTop - scrollSpeed + "px";
         if(iblockTop < -20){
             currentBlocks.shift();
             iblock.remove();
             ihole.remove();
         }
-        if(iblockTop-20<characterTop && iblockTop>characterTop){
+        if(iblockTop-24<characterTop && iblockTop>characterTop){
             drop++;
             if(iholeLeft<=characterLeft && iholeLeft+20>=characterLeft){
                 drop = 0;
@@ -97,6 +98,6 @@ var blocks = setInterval(function(){
             character.style.top = characterTop + 2 + "px";
         }
     }else{
-        character.style.top = characterTop - 1.5 + "px";
+        character.style.top = characterTop - 0.1 + "px";
     }
 },1);
