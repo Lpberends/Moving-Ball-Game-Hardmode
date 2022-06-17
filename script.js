@@ -78,8 +78,8 @@ var blocks = setInterval(function(){
         let ihole = document.getElementById("hole"+current);
         let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue("top"));
         let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue("left"));
-        iblock.style.top = iblockTop - 1.5 + "px";
-        ihole.style.top = iblockTop -  1.5 + "px";
+        iblock.style.top = iblockTop - 0.5 - counter * 0.01 + "px";
+        ihole.style.top = iblockTop -  0.5 - counter * 0.01 + "px";
         if(iblockTop < -20){
             currentBlocks.shift();
             iblock.remove();
