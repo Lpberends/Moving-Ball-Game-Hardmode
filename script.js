@@ -101,7 +101,7 @@ var blocks = setInterval(function(){
     //Horizontal Movement
     if (inputLeft || inputRight){
         var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-        linearMovement = inputRight * 2 - inputLeft * 2;
+        linearMovement = inputRight * 3 - inputLeft * 3;
         console.log("move me " + linearMovement)
         if(!thruHole){
             left += linearMovement;
