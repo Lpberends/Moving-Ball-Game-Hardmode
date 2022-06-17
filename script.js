@@ -1,32 +1,33 @@
 var character = document.getElementById("character");
 var game = document.getElementById("game");
 var interval;
+var both = 0;
 var counter = 0;
+var inputLeft = 0;
+var inputRight = 0;
 var linearMovement = 0;
 var currentBlocks = [];
 
-function moveLeft(){
-    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    if(left>0){
-        character.style.left = left - 3 + "px";
-    }
-}
-function moveRight(){
-    var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
-    if(left<380){
-        character.style.left = left + 3 + "px";
-    }
-}
 document.addEventListener("keydown", event => {
-        if(event.key==="ArrowLeft" && event.key!=="ArrowRight"){
-            linearMovement = -3;
+        if(event.key==="ArrowLeft"){
+            console.log("left");
+            inputLeft = 1;
         }
-        else if(event.key==="ArrowRight" && event.key!=="ArrowLeft"){
-            linearMovement = 3;
+        if(event.key==="ArrowRight"){
+            console.log("right");
+            inputRight = 1;
         }
-        else{
-            linearMovement = 0;
-        }
+});
+
+document.addEventListener("keyup", event => {
+    if(event.key==="ArrowLeft"){
+        console.log("left");
+        inputLeft = 0;
+    }
+    if(event.key==="ArrowRight"){
+        console.log("right");
+        inputRight = 0;
+    }
 });
 
 var blocks = setInterval(function(){
@@ -61,8 +62,11 @@ var blocks = setInterval(function(){
         location.reload();
     }
     //Horizontal Movement
-    if (linearMovement != 0){
-        characterLeft = (characterLeft + linearMovement) + "px";
+    if (inputLeft || inputRight){
+        var left = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+        linearMovement = inputRight * 3 - inputLeft * 3;
+        console.log("move me " + linearMovement)
+        character.style.left = (left + linearMovement) + "px";
     }
     //Vertical Movement
     for(var i = 0; i < currentBlocks.length;i++){
