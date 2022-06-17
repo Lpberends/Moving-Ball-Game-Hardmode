@@ -17,13 +17,7 @@ function moveRight(){
         character.style.left = left + 3 + "px";
     }
 }
-document.addEventListener("keydown", event => {
-        both++;
-        if(event.key==="ArrowLeft"){
-            interval = setInterval(moveLeft, 1);
-        }
-        if(event.key==="ArrowRight"){
-            interval = setInterval(moveRight, 1);
+
         }
     }
 });
