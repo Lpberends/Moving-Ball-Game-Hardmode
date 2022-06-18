@@ -73,7 +73,7 @@ var blocks = setInterval(function(){
         let ihole = document.getElementById("hole"+currentBlocks[i]);
         let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue("top"));
         let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue("left"));
-        var scrollSpeed = Math.min(0.3 + counter * 0.01 , 1.5)
+        var scrollSpeed = Math.min(0.5 + counter * 0.005 , 1.5)
         iblock.style.top = iblockTop - scrollSpeed + "px";
         ihole.style.top = iblockTop - scrollSpeed + "px";
         if(iblockTop < -20){
